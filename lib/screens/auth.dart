@@ -40,6 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
           email: _enteredEmail,
           password: _enteredPassword,
         );
+        print(userCredential);
       } else {
         final userCredential = await _firebase.createUserWithEmailAndPassword(
           email: _enteredEmail,
@@ -130,9 +131,11 @@ class _AuthScreenState extends State<AuthScreen> {
                               _enteredEmail = value!;
                             },
                           ),
-                          if(!_isLogin)
+                          if (!_isLogin)
                             TextFormField(
-                              decoration: InputDecoration(labelText: 'Username'),
+                              decoration: InputDecoration(
+                                labelText: 'Username',
+                              ),
                               enableSuggestions: false,
                               validator: (value) {
                                 if (value == null ||
@@ -140,6 +143,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     value.trim().length < 4) {
                                   return 'please enter at least 4 characters.';
                                 }
+                                return null;
                               },
                               onSaved: (value) {
                                 _enteredUsername = value!;
